@@ -15,6 +15,24 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
+-- Macro recording notifications (cmdheight=0 hides the default message)
+-----------------------------------------------------------------------
+vim.api.nvim_create_autocmd("RecordingEnter", {
+    group = augroup,
+    desc = "Notify when macro recording starts",
+    callback = function()
+        vim.notify(string.format("recording @%s", vim.fn.reg_recording()))
+    end,
+})
+
+vim.api.nvim_create_autocmd("RecordingLeave", {
+    group = augroup,
+    desc = "Notify when macro recording stops",
+    callback = function()
+        vim.notify("recording stopped")
+    end,
+})
+
 -- Format on save - 
 --------------------
 -- check https://github.com/radleylewis/nvim-lite/blob/master/init.lua

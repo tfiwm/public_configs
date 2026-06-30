@@ -61,6 +61,19 @@ vim.keymap.set("n", "<leader>sn", fzf.live_grep_glob, { desc = "Grep with glob f
 ------ MINI NOTIFY - shows notification on the top right
 -----------------------------------------------------------
 require("mini.notify").setup({
+    -- Enforce a minimum window width so short messages (like "recording @a")
+    -- don't produce a tiny, hard-to-read floating window.
+    window = {
+        config = function(bufnr)
+            local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+            local max_line = 0
+            for _, line in ipairs(lines) do
+                max_line = math.max(max_line, vim.fn.strdisplaywidth(line))
+            end
+            local min_width = 24
+            return { width = math.max(max_line, min_width) }
+        end,
+    },
     -- only show messages
     content = {
         format = function(notif)

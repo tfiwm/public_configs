@@ -1,5 +1,5 @@
 
-local float_term_augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
+local float_term_augroup = vim.api.nvim_create_augroup("FloatingTerminal", { clear = true })
 
 -- ============================================================================
 -- FLOATING TERMINAL
